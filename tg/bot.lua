@@ -214,7 +214,7 @@ function tdcli_update_callback(data)
 	  Tag = "no"
 	 end
   --CerNerTeam
-	local sticker = 'lock_usernametg:'..chat_id
+	local username = 'lock_usernametg:'..chat_id
 	 if redis:get(username) then
 	  Username = "yes"
 	  else 
