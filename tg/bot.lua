@@ -132,7 +132,7 @@ function tdcli_update_callback(data)
        if not redis:get('lock_edittg:'..chat_id) then
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b> edit is not locked</b>', 1, 'html')
        else
-         redis:del('lock_editstg:'..chat_id)
+         redis:del('lock_edittg:'..chat_id)
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b>edit has been unlocked</b>', 1, 'html')
       end
       end
@@ -174,7 +174,7 @@ function tdcli_update_callback(data)
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b>sticker has been unlocked</b>', 1, 'html')
       end
       end
-      if redis:get('lock_stickertg:'..chat_id) and input:match("webp") then
+      if redis:get('lock_stickertg:'..chat_id) and input:match(".webp") then
         tdcli.deleteMessages(chat_id, {[0] = msg.id_})
       end
       if input:match("^[#!/][Mm]ute all$") and is_sudo(msg) then
