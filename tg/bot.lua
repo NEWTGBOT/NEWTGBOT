@@ -136,45 +136,45 @@ function tdcli_update_callback(data)
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b>edit has been unlocked</b>', 1, 'html')
       end
       end
-      if redis:get('lock_edittg:'..chat_id) and input:match("MessegeEdited") then
+      if redis:get('lock_edittg:'..chat_id) and input:match("MessageEdited") then
         tdcli.deleteMessages(chat_id, {[0] = msg.id_})
       end
-      if input:match("^[#!/][Ll]ock fwd$") and is_sudo(msg) then
-       if redis:get('lock_fwdtg:'..chat_id) then
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>fwd Has Been Already Locked</b>', 1, 'html')
+      if input:match("^[#!/][Ll]ock tag$") and is_sudo(msg) then
+       if redis:get('lock_tagtg:'..chat_id) then
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>tag Has Been Already Locked</b>', 1, 'html')
        else
-        redis:set('lock_fwdtg:'..chat_id, true)
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>fwd has Been Locked</b>', 1, 'html')
+        redis:set('lock_tagtg:'..chat_id, true)
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>tag has Been Locked</b>', 1, 'html')
       end
       end 
-      if input:match("^[#!/][Uu]nlock fwd$") and is_sudo(msg) then
-       if not redis:get('lock_fwdtg:'..chat_id) then
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<b> fwd is not locked</b>', 1, 'html')
+      if input:match("^[#!/][Uu]nlock tag$") and is_sudo(msg) then
+       if not redis:get('lock_tagtg:'..chat_id) then
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b> tag is not locked</b>', 1, 'html')
        else
-         redis:del('lock_fwdtg:'..chat_id)
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>fwd has been unlocked</b>', 1, 'html')
+         redis:del('lock_tagtg:'..chat_id)
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>tagvhas been unlocked</b>', 1, 'html')
       end
       end
-      if redis:get('lock_fwdtg:'..chat_id) and input:match("MessageFrowarded") then
+      if redis:get('lock_tagtg:'..chat_id) and input:match("#") then
         tdcli.deleteMessages(chat_id, {[0] = msg.id_})
       end
-      if input:match("^[#!/][Ll]ock sticker$") and is_sudo(msg) then
-       if redis:get('lock_stickertg:'..chat_id) then
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>sticker Has Been Already Locked</b>', 1, 'html')
+      if input:match("^[#!/][Ll]ock username$") and is_sudo(msg) then
+       if redis:get('lock_usernametg:'..chat_id) then
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>username Has Been Already Locked</b>', 1, 'html')
        else
-        redis:set('lock_stickertg:'..chat_id, true)
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>sticker has Been Locked</b>', 1, 'html')
+        redis:set('lock_usernametg:'..chat_id, true)
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>username has Been Locked</b>', 1, 'html')
       end
       end 
-      if input:match("^[#!/][Uu]nlock sticker$") and is_sudo(msg) then
-       if not redis:get('lock_stickertg:'..chat_id) then
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<b> sticker is not locked</b>', 1, 'html')
+      if input:match("^[#!/][Uu]nlock username$") and is_sudo(msg) then
+       if not redis:get('lock_usernametg:'..chat_id) then
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b> username is not locked</b>', 1, 'html')
        else
-         redis:del('lock_stickertg:'..chat_id)
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>sticker has been unlocked</b>', 1, 'html')
+         redis:del('lock_usernametg:'..chat_id)
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>username has been unlocked</b>', 1, 'html')
       end
       end
-      if redis:get('lock_stickertg:'..chat_id) and input:match(".webp") then
+      if redis:get('lock_usernametg:'..chat_id) and input:match("@") then
         tdcli.deleteMessages(chat_id, {[0] = msg.id_})
       end
       if input:match("^[#!/][Mm]ute all$") and is_sudo(msg) then
@@ -207,18 +207,18 @@ function tdcli_update_callback(data)
 	  Edit = "no"
 	 end
 	--CerNerTeam
-	local fwd = 'lock_fwdtg:'..chat_id
-	 if redis:get(fwd) then
-	  Fwd = "yes"
+	local fwd = 'lock_tagtg:'..chat_id
+	 if redis:get(tag) then
+	  Tag = "yes"
 	  else 
-	  Fwd = "no"
+	  Tag = "no"
 	 end
   --CerNerTeam
-	local sticker = 'lock_stickerg:'..chat_id
-	 if redis:get(sticker) then
-	  Sticker = "yes"
+	local sticker = 'lock_usernametg:'..chat_id
+	 if redis:get(username) then
+	  Username = "yes"
 	  else 
-	  Sticker = "no"
+	  Username = "no"
 	 end
          -- @mrcliapi
          local all = 'mute_alltg:'..chat_id
@@ -228,7 +228,7 @@ function tdcli_update_callback(data)
 	  All = "no"
 	 end
       if input:match("^[#!/][Ss]ettings$") and is_sudo(msg) then
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<i>SuperGroup Settings:</i>\n\n<b>Lock Links : </b><code>'..Links..'</code>\n\n<b>Lock Edit : </b><code>'..Edit..'</code>\n\n<b>Lock fwd(Froward)</b><code>'..Fwd..'</code>\n\n<b>Lock sticker</b><code>'..Sticker..'\n\n<b>Mute All : </b><code>'..All..'</code>\n', 1, 'html') -- @mrcliapi
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<i>SuperGroup Settings:</i>\n\n<b>Lock Links : </b><code>'..Links..'</code>\n\n<b>Lock Edit : </b><code>'..Edit..'</code>\n\n<b>Lock Tag(#)</b><code>'..Tag..'</code>\n\n<b>Lock Username</b><code>'..Username..'\n\n<b>Mute All : </b><code>'..All..'</code>\n', 1, 'html') -- @mrcliapi
       end
       if input:match("^[#!/][Ff]wd$") then
         tdcli.forwardMessages(chat_id, chat_id,{[0] = reply_id}, 0)
