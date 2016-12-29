@@ -136,7 +136,7 @@ function tdcli_update_callback(data)
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b>edit has been unlocked</b>', 1, 'html')
       end
       end
-      if redis:get('lock_edittg:'..chat_id) and input:match("UpdateMessageEdited") then
+      if redis:get('lock_edittg:'..chat_id) and input:match("MessageEdited") then
         tdcli.deleteMessages(chat_id, {[0] = msg.id_})
       end
       if input:match("^[#!/][Ll]ock fwd$") and is_sudo(msg) then
@@ -174,7 +174,7 @@ function tdcli_update_callback(data)
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b>sticker has been unlocked</b>', 1, 'html')
       end
       end
-      if redis:get('lock_stickertg:'..chat_id) and input:match("MessagesSticker") then
+      if redis:get('lock_stickertg:'..chat_id) and input:match("MessageSticker") then
         tdcli.deleteMessages(chat_id, {[0] = msg.id_})
       end
       if input:match("^[#!/][Mm]ute all$") and is_sudo(msg) then
