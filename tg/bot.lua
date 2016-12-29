@@ -212,7 +212,8 @@ function tdcli_update_callback(data)
 	  Fwd = "yes"
 	  else 
 	  Fwd = "no"
-	 end  
+	 end
+  --CerNerTeam
 	local sticker = 'lock_stickerg:'..chat_id
 	 if redis:get(Sticker) then
 	  Sticker = "yes"
