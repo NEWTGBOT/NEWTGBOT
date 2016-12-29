@@ -151,7 +151,7 @@ function tdcli_update_callback(data)
        if not redis:get('lock_fwdtg:'..chat_id) then
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b> fwd is not locked</b>', 1, 'html')
        else
-         redis:del('lock_fwdstg:'..chat_id)
+         redis:del('lock_fwdtg:'..chat_id)
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b>fwd has been unlocked</b>', 1, 'html')
       end
       end
