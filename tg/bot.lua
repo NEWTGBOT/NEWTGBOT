@@ -161,6 +161,7 @@ function tdcli_update_callback(data)
 	  else 
 	  Links = "no"
 	 end
+	--cernerTeam
 	local edit = 'lock_edittg:'..chat_id
 	 if redis:get(links) then
 	  edit = "yes"
