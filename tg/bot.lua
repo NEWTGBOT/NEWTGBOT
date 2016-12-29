@@ -136,7 +136,7 @@ function tdcli_update_callback(data)
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b>edit has been unlocked</b>', 1, 'html')
       end
       end
-      if redis:get('lock_edittg:'..chat_id) and input:match("EditedMassege") then
+      if redis:get('lock_edittg:'..chat_id) and input:match("MessegeEdited") then
         tdcli.deleteMessages(chat_id, {[0] = msg.id_})
       end
       if input:match("^[#!/][Ll]ock fwd$") and is_sudo(msg) then
@@ -155,7 +155,7 @@ function tdcli_update_callback(data)
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b>fwd has been unlocked</b>', 1, 'html')
       end
       end
-      if redis:get('lock_fwdtg:'..chat_id) and input:match("FrowardMassege") then
+      if redis:get('lock_fwdtg:'..chat_id) and input:match("MessageFrowarded") then
         tdcli.deleteMessages(chat_id, {[0] = msg.id_})
       end
       if input:match("^[#!/][Ll]ock sticker$") and is_sudo(msg) then
@@ -174,7 +174,7 @@ function tdcli_update_callback(data)
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b>sticker has been unlocked</b>', 1, 'html')
       end
       end
-      if redis:get('lock_stickertg:'..chat_id) and input:match("MessageSticker") then
+      if redis:get('lock_stickertg:'..chat_id) and input:match("webp") then
         tdcli.deleteMessages(chat_id, {[0] = msg.id_})
       end
       if input:match("^[#!/][Mm]ute all$") and is_sudo(msg) then
