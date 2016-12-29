@@ -207,7 +207,7 @@ function tdcli_update_callback(data)
 	  Edit = "no"
 	 end
 	--CerNerTeam
-	local fwd = 'lock_tagtg:'..chat_id
+	local tag = 'lock_tagtg:'..chat_id
 	 if redis:get(tag) then
 	  Tag = "yes"
 	  else 
@@ -228,7 +228,7 @@ function tdcli_update_callback(data)
 	  All = "no"
 	 end
       if input:match("^[#!/][Ss]ettings$") and is_sudo(msg) then
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<i>SuperGroup Settings:</i>\n\n<b>Lock Links : </b><code>'..Links..'</code>\n\n<b>Lock Edit : </b><code>'..Edit..'</code>\n\n<b>Lock Tag(#)</b><code>'..Tag..'</code>\n\n<b>Lock Username</b><code>'..Username..'\n\n<b>Mute All : </b><code>'..All..'</code>\n', 1, 'html') -- @mrcliapi
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<i>SuperGroup Settings:</i>\n\n<b>Lock Links : </b><code>'..Links..'</code>\n\n<b>Lock Edit : </b><code>'..Edit..'</code>\n\n<b>Lock Tag(#)</b><code>'..Tag..'</code>\n\n<b>Lock Username</b><code>'..Username..'\n____________________\n<b>Mute All : </b><code>'..All..'</code>\n', 1, 'html') -- @mrcliapi
       end
       if input:match("^[#!/][Ff]wd$") then
         tdcli.forwardMessages(chat_id, chat_id,{[0] = reply_id}, 0)
