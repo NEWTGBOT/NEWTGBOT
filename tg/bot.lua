@@ -164,9 +164,9 @@ function tdcli_update_callback(data)
 	--cernerTeam
 	local edit = 'lock_edittg:'..chat_id
 	 if redis:get(links) then
-	  edit = "yes"
+	  Edit = "yes"
 	  else 
-	  edit = "no"
+	  Edit = "no"
 	 end
          -- @mrcliapi
          local all = 'mute_alltg:'..chat_id
