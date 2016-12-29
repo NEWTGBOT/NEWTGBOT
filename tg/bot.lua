@@ -136,7 +136,45 @@ function tdcli_update_callback(data)
         tdcli.sendMessage(chat_id, msg.id_, 1, '<b>edit has been unlocked</b>', 1, 'html')
       end
       end
-      if redis:get('lock_edittg:'..chat_id) and input:match("editMessageText") then
+      if redis:get('lock_edittg:'..chat_id) and input:match("editMessagesText") then
+        tdcli.deleteMessages(chat_id, {[0] = msg.id_})
+      end
+      if input:match("^[#!/][Ll]ock fwd$") and is_sudo(msg) then
+       if redis:get('lock_fwdtg:'..chat_id) then
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>fwd Has Been Already Locked</b>', 1, 'html')
+       else
+        redis:set('lock_fwdtg:'..chat_id, true)
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>fwd has Been Locked</b>', 1, 'html')
+      end
+      end 
+      if input:match("^[#!/][Uu]nlock fwd$") and is_sudo(msg) then
+       if not redis:get('lock_fwdtg:'..chat_id) then
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b> fwd is not locked</b>', 1, 'html')
+       else
+         redis:del('lock_fwdstg:'..chat_id)
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>fwd has been unlocked</b>', 1, 'html')
+      end
+      end
+      if redis:get('lock_fwdtg:'..chat_id) and input:match("forwardMessages") then
+        tdcli.deleteMessages(chat_id, {[0] = msg.id_})
+      end
+      if input:match("^[#!/][Ll]ock sticker$") and is_sudo(msg) then
+       if redis:get('lock_stickertg:'..chat_id) then
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>sticker Has Been Already Locked</b>', 1, 'html')
+       else
+        redis:set('lock_stickertg:'..chat_id, true)
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>sticker has Been Locked</b>', 1, 'html')
+      end
+      end 
+      if input:match("^[#!/][Uu]nlock sticker$") and is_sudo(msg) then
+       if not redis:get('lock_stickertg:'..chat_id) then
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b> sticker is not locked</b>', 1, 'html')
+       else
+         redis:del('lock_stickertg:'..chat_id)
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<b>sticker has been unlocked</b>', 1, 'html')
+      end
+      end
+      if redis:get('lock_stickertg:'..chat_id) and input:match(".webp") then
         tdcli.deleteMessages(chat_id, {[0] = msg.id_})
       end
       if input:match("^[#!/][Mm]ute all$") and is_sudo(msg) then
@@ -168,6 +206,19 @@ function tdcli_update_callback(data)
 	  else 
 	  Edit = "no"
 	 end
+	--CerNerTeam
+	local fwd = 'lock_fwdtg:'..chat_id
+	 if redis:get(Fwd) then
+	  Fwd = "yes"
+	  else 
+	  Fwd = "no"
+	 end  
+	local sticker = 'lock_stickerg:'..chat_id
+	 if redis:get(Sticker) then
+	  Sticker = "yes"
+	  else 
+	  Sticker = "no"
+	 end
          -- @mrcliapi
          local all = 'mute_alltg:'..chat_id
 	 if redis:get(all) then
@@ -176,7 +227,7 @@ function tdcli_update_callback(data)
 	  All = "no"
 	 end
       if input:match("^[#!/][Ss]ettings$") and is_sudo(msg) then
-        tdcli.sendMessage(chat_id, msg.id_, 1, '<i>SuperGroup Settings:</i>\n<b>__________________</b>\n\n<b>Lock Links : </b><code>'..Links..'</code>\n\n<b>Lock Edit : </b><code>'..Edit..'</code>\n\n<b>Mute All : </b><code>'..All..'</code>\n', 1, 'html') -- @mrcliapi
+        tdcli.sendMessage(chat_id, msg.id_, 1, '<i>SuperGroup Settings:</i>\n<b>Lock Links : </b><code>'..Links..'</code>\n<b>Lock Edit : </b><code>'..Edit..'</code>\n<b>Lock sticker</b><code>'..Sticker..'</code>\n<b>Lock Fwd</b><code>'..Fwd..'\n<b>Mute All : </b><code>'..All..'</code>\n', 1, 'html') -- @mrcliapi
       end
       if input:match("^[#!/][Ff]wd$") then
         tdcli.forwardMessages(chat_id, chat_id,{[0] = reply_id}, 0)
