@@ -201,21 +201,21 @@ function tdcli_update_callback(data)
 	 end
 	--cernerTeam
 	local edit = 'lock_edittg:'..chat_id
-	 if redis:get(links) then
+	 if redis:get(edit) then
 	  Edit = "yes"
 	  else 
 	  Edit = "no"
 	 end
 	--CerNerTeam
 	local fwd = 'lock_fwdtg:'..chat_id
-	 if redis:get(Fwd) then
+	 if redis:get(fwd) then
 	  Fwd = "yes"
 	  else 
 	  Fwd = "no"
 	 end
   --CerNerTeam
 	local sticker = 'lock_stickerg:'..chat_id
-	 if redis:get(Sticker) then
+	 if redis:get(sticker) then
 	  Sticker = "yes"
 	  else 
 	  Sticker = "no"
